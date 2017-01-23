@@ -1,0 +1,813 @@
+{
+    "tm1-template-table-basic": {
+        "prefix": "tm1-template-table:basic",
+        "description": "A basic HTML table",
+        "body": [
+            " <table class=\"${1:table table-striped}\">",
+            "",
+            "  <thead>",
+            "    <tr>",
+            "      <th class=\"${2:text-center}\"> ${3:Header 1} </th>",
+            "      <th class=\"${2:text-center}\"> ${4:Header 2} </th>",
+            "    </tr>",
+            "  </thead>",
+            "",
+            "  <tbody>",
+            "    <tr>",
+            "      <td> ${5:Data Column 1} </td>",
+            "      <td> ${6:Data Column 2} </td>",
+            "    </tr>",
+            "  </tbody>",
+            "",
+            " </table>"
+        ]
+    },
+    "tm1-template-table-zero-suppression": {
+        "prefix": "tm1-template-table:zero-suppression",
+        "description": "A table with zero suppression",
+        "body": [
+            "<div class=\"row\">",
+            "",
+            " <tm1-ui-element-list tm1-instance=\"${1:Instance Name}\" tm1-dimension=\"${2:Dimension Name}\" tm1-subset=\"${3:Subset Name}\" tm1-attributes=\"${4:Attribute Name}\" tm1-calculate-top-level=\"${5:true}\" ng-model=\"${6:model}\">",
+            " </tm1-ui-element-list>",
+            "",
+            " <div class=\"${7:col-md-12}\">",
+            "   <table class=\"${8:table table-striped}\">",
+            "",
+            "    <thead>",
+            "       <tr>",
+            "          <th class=\"${9:text-center}\"> ${10:Header 1} </th>",
+            "          <th class=\"${11:text-center}\"> ${12:Header 2} </th>",
+            "       </tr>",
+            "    </thead>",
+            "",
+            "    <tbody>",
+            "       <tr ng-show=\"${13:item}.${14:value}!='0'}\" ng-repeat=\"${13:item} in ${6:model}}\">",
+            "          <td>",
+            "            <tm1-ui-element-list-item tm1-item=\"${13:item}\" tm1-item-display=\"{{${13:item}.alias}}\">",
+            "            </tm1-ui-element-list-item>",
+            "          </td>",
+            "          <td class=\"${14:text-right}\">",
+            "            <tm1-ui-dbr tm1-instance=\"${1:Instance Name}\" tm1-cube=\"${15:Cube Name}\" tm1-elements='${16:Comma separated element list}' tm1-data-decimal=\"${17:0}\" ng-model=\"${13:item}.${14:value}\">",
+            "            </tm1-ui-dbr>",
+            "          </td>",
+            "      </tr>",
+            "    </tbody>",
+            "",
+            "   </table>",
+            "  </div>",
+            "</div>"
+        ]
+    },
+      "tm2-template-table-named-mdx": {
+        "prefix": "tm2-template-table-named-mdx:basic",
+        "description": "A table with with named MDX",
+        "body": [
+              "<div ng-if=\"dataset && !loading\">",
+              "  ",
+              "    	  <table class=\"table table-striped\" ng-if=\"!loading\">",
+              "           <thead>",
+              "            <tr ng-repeat=\"row in dataset.headers\">",
+              "              <th ng-repeat=\"col in row.rows\" ng-if=\"col.visible\" colspan=\"{{col.colspan}}\" rowspan=\"{{col.rowspan}}\" class=\"text-center\" >",
+              "                {{col.dimension}}",
+              "              </th>",
+              "              <th ng-repeat=\"col in row.columns\" ng-if=\"col.visible\" colspan=\"{{col.colspan}}\" rowspan=\"{{col.rowspan}}\" class=\"text-center\" >",
+              "                {{col.name}}",
+              "              </th>",
+              "            </tr>",
+              "           </thead>",
+              "           <tbody>",
+              "            <tr ng-repeat=\"row in table.data()\" >",
+              "              <td ng-repeat=\"el in row.elements\" ng-if=\"el.visible || $$parent.$$index == 0\" colspan=\"{{el.colspan}}\" rowspan=\"{{el.rowspan}}\" ng-class=\"{'tm1-ui-element-consol': el.element.type == 'C'}\"  >",
+              "                <span class=\"tm1-ui-indent\" ng-repeat=\"item in el.element.indent\"></span>",
+              "                <span ng-if=\"el.element.type != 'C'\" style=\"margin-right:20px;\"></span>",
+              "                <i ng-if=\"el.element.type == 'C' && !el.element.collapsed && $$index == 0\" ng-click=\"el.element.toggle();table.refresh();\" class=\"fa fa-caret-down fa-fw\" style=\"margin-right:5px; cursor: pointer;\" ></i>",
+              "                <i ng-if=\"el.element.type == 'C' && el.element.collapsed && $$index == 0\" ng-click=\"el.element.toggle();table.refresh();\" class=\"fa fa-caret-right fa-fw\" style=\"margin-right:5px; cursor: pointer;\" ></i>",
+              "                <i ng-if=\"el.element.type == 'C' && $$index > 0\" class=\"fa fa-angle-down fa-fw\" style=\"margin-right:5px;\" ></i>",
+              "                {{el.name}}",
+              "              </td>",
+              "              <td ng-repeat=\"cell in row.cells\" class=\"text-right\" >",
+              "                <input ng-if=\"!cell.isReadOnly\" type=\"text\" class=\"form-control text-right\" tm1-ui-format-number=\"0\" ng-model=\"cell.value\" ng-blur=\"cell.update(query);\" />",
+              "                <span ng-if=\"cell.isReadOnly\" style=\"padding-right: 10px;\">{{cell.value | formatNumber:0}}</span>",
+              "              </td>",
+              "            </tr>",
+              "           </tbody>",
+              "         </table> ",
+              "",
+              "</div>"
+        ]
+    },
+   "tm1-template-active-form-basic": {
+        "prefix": "tm1-template-active-form:basic",
+        "description": "A template to create an Active Form",
+        "body": [  
+            "<tm1-ui-rpt-view tm1-instance=\"${1:Instance Name}\" tm1-cube=\"${2:Cube Name}\" ng-model=\"${3:data}\" tm1-suppress-zero=\"${4:both}\">",
+            "   <tm1-ui-rpt-config>",
+            "",
+            "     <tm1-ui-rpt-title tm1-dimension=\"${5:Dimension Name 1}\" tm1-element=\"${6:Element Name 1}\"></tm1-ui-rpt-title>",
+            "     <tm1-ui-rpt-title tm1-dimension=\"${7:Dimension Name 2}\" tm1-element=\"${8:Element Name 2}\"></tm1-ui-rpt-title>",
+            "",
+            "     <tm1-ui-rpt-row tm1-dimension=\"${9:Dimension Name on Row}\" tm1-subset=\"${10:Subset Name on Row}\" tm1-attribute=\"${12:Attribute Name on Row}\"></tm1-ui-rpt-row>",
+            "",
+            "     <tm1-ui-rpt-column tm1-dimension=\"${13:Dimension Name on Col}\" tm1-subset=\"${14:Subset Name on Col}\" tm1-attribute=\"${15:Attribute Name on Col}\"></tm1-ui-rpt-column>",
+            "",
+            "   </tm1-ui-rpt-config>",
+            "",
+            "   <tm1-ui-rpt-template>",
+            "",
+            "     <table id=\"${16:af1}\" class=\"${17:table table-condensed}\">",
+            "      <thead>",
+            "       <tr>",
+            "         <th> ${18:Header 1} </th>",
+            "         <th class=\"${19:test-center}\">${20:Header 2}</th>",
+            "       </tr>",
+            "      </thead>",
+            "      <tbody>",
+            "       <tr ng-repeat=\"rowData in ${3:data}.rows track by $$index\">",
+            "         <td><tm1-ui-rpt-row-label tm1-row-data=\"rowData\" tm1-dimension=\"${23:Dimension Name on Row}\" tm1-row-index=\"{{$$index}}\"></tm1-ui-rpt-row-label></td>",
+            "         <td class=\"${25:test-right}\"><tm1-ui-dbr tm1-instance=\"${1:Instance Name}\" tm1-cube=\"${2:Cube Name}\" tm1-elements='${26:Comma separated element list}' tm1-data-decimal=\"${27:0}\"></tm1-ui-dbr></td>",
+            "       </tr>",
+            "      </tbody>",
+            "     </table>",
+            "",
+            "   </tm1-ui-rpt-template>",
+            "",
+            "</tm1-ui-rpt-view> "
+        ]
+    },
+    "tm1-ui-chart-basic": {
+        "prefix": "tm1-ui-chart:basic",
+        "description": "tm1-ui-chart is used to create a chart",
+        "body": [  
+            "<tm1-ui-chart",
+            "   tm1-chart-type=\"${1:discreteBar}\"",
+            "   tm1-height=\"${2:300}\"",
+            "   tm1-axis-label-x=\"${3:}\"",
+            "   tm1-axis-label-y=\"${4:}\"",
+            "   tm1-data-decimal=\"${5:0}\"",
+            "   tm1-duration=\"${6:2000}\"",
+            "   tm1-margin=\"${7:{top: 10, right: 10, bottom: 20, left: 10}}\"",
+            "   >",
+            "",
+            "       <tm1-ui-chart-dbr tm1-instance=\"${8:Instance Name}\" tm1-cube=\"${9:Cube Name}\" tm1-label=\"${10:Label}\" tm1-elements='${14:Comma separated element list}' ></tm1-ui-chart-dbr>",
+            "       <tm1-ui-chart-dbr tm1-instance=\"${8:Instance Name}\" tm1-cube=\"${9:Cube Name}\" tm1-label=\"${11:Label}\" tm1-elements='${15:Comma separated element list}' ></tm1-ui-chart-dbr>",
+            "       <tm1-ui-chart-dbr tm1-instance=\"${8:Instance Name}\" tm1-cube=\"${9:Cube Name}\" tm1-label=\"${12:Label}\" tm1-elements='${16:Comma separated element list}' ></tm1-ui-chart-dbr>",
+            "       <tm1-ui-chart-dbr tm1-instance=\"${8:Instance Name}\" tm1-cube=\"${9:Cube Name}\" tm1-label=\"${13:Label}\" tm1-elements='${17:Comma separated element list}' ></tm1-ui-chart-dbr>",
+            "",
+            "</tm1-ui-chart>"
+        ]
+    },
+    "tm1-ui-chart-full": {
+        "prefix": "tm1-ui-chart:full",
+        "description": "tm1-ui-chart is used to create a chart",
+        "body": [  
+            "<tm1-ui-chart",
+            "   tm1-chart-type=\"${1:discreteBar}\"",
+            "   tm1-height=\"${2:300}\"",
+            "   tm1-axis-label-x=\"${3:}\"",
+            "   tm1-axis-label-y=\"${4:}\"",
+            "   tm1-data-decimal=\"${5:0}\"",
+            "   tm1-duration=\"${6:2000}\"",
+            "   tm1-margin=\"${7:{top: 10, right: 10, bottom: 20, left: 10}}\"",
+            "   tm1-show-values=\"${8:false}\"",
+            "   tm1-format-percentage=\"${9:false}\"",
+            "   tm1-min-y=\"${10:0}\"",
+            "   tm1-max-y=\"${11:100}\"",
+            "   tm1-state=\"${12:string}\"",
+            "   tm1-hide-controls=\"${13:false}\"",
+            "   tm1-hide-labels=\"${14:false}\"",
+            "   tm1-legend=\"${15:string}\"",
+            "   tm1-ui-class=\"${16:string}\"",
+            "   tm1-color-scheme=\"${17:array}\"",
+            "   tm1-rotate-label=\"${18:string}\"",
+            "   tm1-options-override=\"${19:string}\"",
+            "   ng-model=\"${20:model}\"",
+            "   >",
+            "",
+            "       <tm1-ui-chart-dbr tm1-instance=\"${21:Instance Name}\" tm1-cube=\"${22:Cube Name}\" tm1-label=\"${23:Label}\" tm1-elements='${27:Comma separated element list}' ></tm1-ui-chart-dbr>",
+            "       <tm1-ui-chart-dbr tm1-instance=\"${21:Instance Name}\" tm1-cube=\"${22:Cube Name}\" tm1-label=\"${24:Label}\" tm1-elements='${28:Comma separated element list}' ></tm1-ui-chart-dbr>",
+            "       <tm1-ui-chart-dbr tm1-instance=\"${21:Instance Name}\" tm1-cube=\"${22:Cube Name}\" tm1-label=\"${25:Label}\" tm1-elements='${29:Comma separated element list}' ></tm1-ui-chart-dbr>",
+            "       <tm1-ui-chart-dbr tm1-instance=\"${21:Instance Name}\" tm1-cube=\"${22:Cube Name}\" tm1-label=\"${26:Label}\" tm1-elements='${30:Comma separated element list}' ></tm1-ui-chart-dbr>",
+            "",
+            "</tm1-ui-chart>"
+        ]
+    },
+    "tm1-ui-chart-dbr": {
+        "prefix": "tm1-ui-chart-dbr:basic",
+        "description": "tm1-ui-chart-dbr is used to add a TM1 value to a tm1-ui-chart",
+        "body": [  
+            "<tm1-ui-chart-dbr",
+            "   tm1-instance=\"${1:Instance Name}\"",
+            "   tm1-cube=\"${2:Cube Name}\"",
+            "   tm1-elements='${3:Comma separated element list}'",
+            "   tm1-label=\"${4:Label}\"",
+            "   >",
+            "</tm1-ui-chart-dbr>"
+        ]
+    },
+    "tm1-ui-dbr-basic": {
+        "prefix": "tm1-ui-dbr:basic",
+        "description": "tm1-ui-dbr is used to return a cell from TM1",
+        "body": [  
+            "<tm1-ui-dbr",
+            "   tm1-instance=\"${1:Instance Name}\"",
+            "   tm1-cube=\"${2:Cube Name}\"",
+            "   tm1-elements='${3:Comma separated element list}'",
+            "   tm1-data-decimal=\"${4:0}\"",
+            "   >",
+            "</tm1-ui-dbr>"
+        ]
+    },
+    "tm1-ui-dbr-full": {
+        "prefix": "tm1-ui-dbr:full",
+        "description": "tm1-ui-dbr is used to return a cell from TM1",
+        "body": [   
+            "<tm1-ui-dbr",
+            "   tm1-instance=\"${1:Instance Name}\"",
+            "   tm1-cube=\"${2:Cube Name}\"",
+            "   tm1-elements='${3:Comma separated element list}'",
+            "   tm1-comment-cube=\"${4:Cube Name}\"",
+            "   tm1-comment-elements='${5:Comma separated element list}'",
+            "   tm1-comment-format-html-buttons=\"${6:[[\"h1\",\"h2\",\"h3\"],[\"bold\",\"italics\",\"underline\",\"justifyLeft\",\"justifyCenter\",\"justifyRight\",\"justifyFull\"],[\"indent\",\"outdent\",\"ul\",\"ol\"]]}\"",
+            "   tm1-picklist-radio=\"${7:none}\"",
+            "   tm1-multi-line=\"${8:1}\"",
+            "   tm1-read-only=\"${9:false}\"",
+            "   tm1-comment-read-only=\"${10:false}\"",
+            "   tm1-data-decimal=\"${11:0}\"",
+            "   tm1-default-empty=\"${12:string}\"",
+            "   tm1-placeholder=\"${13:string}\"",
+            "   tm1-date-option=\"${14:{format:\"yyyy-mm-dd\"}}\"",
+            "   tm1-format-percentage=\"${15:false}\"",
+            "   tm1-format-parenthesis=\"${16:false}\"",
+            "   tm1-format-html=\"${17:false}\"",
+            "   tm1-format-html-popup=\"${18:false}\"",
+            "   tm1-hide-reference=\"${19:false}\"",
+            "   tm1-hide-comment=\"${20:false}\"",
+            "   tm1-hide-spread=\"${21:false}\"",
+            "   tm1-hide-drill=\"${22:false}\"",
+            "   tm1-format-html-buttons=\"${23:[[\"h1\",\"h2\",\"h3\"],[\"bold\",\"italics\",\"underline\",\"justifyLeft\",\"justifyCenter\",\"justifyRight\",\"justifyFull\"],[\"indent\",\"outdent\",\"ul\",\"ol\"]]}\"",
+            "   tm1-validate=\"${24:string}\"",
+            "   tm1-validate-message=\"${25:string}\"",
+            "   tm1-ui-class=\"${26:string}\"",
+            "   tm1-consol-input=\"${27:false}\"",
+            "   tm1-consol-input-spread-method=\"${28:p}\"",
+            "   tm1-before-update=\"${29:beforeUpdateEvent($event)}\"",
+            "   tm1-drill-model=\"${30:string}\"",
+            "   tm1-api=\"${31:string}\"",
+            "   tm1-change=\"${32:false}\"",
+            "   ng-model=\"${33:model}\"",
+            "   >",
+            "</tm1-ui-dbr>"
+        ]
+    },
+    "tm1-ui-dbr-hidden-basic": {
+        "prefix": "tm1-ui-dbr-hidden:basic",
+        "description": "A DBR-like implementation for retrieving cube data from TM1 that is hidden",
+        "body": [  
+            "<tm1-ui-dbr-hidden",
+            "   tm1-instance=\"${1:Instance Name}\"",
+            "   tm1-cube=\"${2:Cube Name}\"",
+            "   tm1-elements='${3:Comma separated element list}'",
+            "   ng-model=\"${4:model}\"",
+            "   >",
+            "</tm1-ui-dbr-hidden>"
+        ]
+    },
+    "tm1-ui-dbr-hidden-full": {
+        "prefix": "tm1-ui-dbr-hidden:full",
+        "description": "A DBR-like implementation for retrieving cube data from TM1 that is hidden",
+        "body": [  
+            "<tm1-ui-dbr-hidden",
+            "   tm1-instance=\"${1:Instance Name}\"",
+            "   tm1-cube=\"${2:Cube Name}\"",
+            "   tm1-elements='${3:Comma separated element list}'",
+            "   ng-model=\"${4:model}\"",
+            "   tm1-data-decimal=\"${5:0}\"",
+            "   >",
+            "</tm1-ui-dbr-hidden>"
+        ]
+    },
+    "tm1-ui-dbr-image-basic": {
+        "prefix": "A DBR-like implementation for retrieving cube data containing paths to images uploaded via tm1-ui-upload",
+        "description": "A DBR-like implementation for retrieving cube data from TM1 that is hidden",
+        "body": [  
+            "<tm1-ui-dbr-image",
+            "   tm1-instance=\"${1:Instance Name}\"",
+            "   tm1-cube=\"${2:Cube Name}\"",
+            "   tm1-elements='${3:Comma separated element list}'",
+            "   ng-model=\"${4:model}\"",
+            "   >",
+            "</tm1-ui-dbr-image>"
+        ]
+    },
+    "tm1-ui-dbr-image-full": {
+        "prefix": "tm1-ui-dbr-image:full",
+        "description": "A DBR-like implementation for retrieving cube data containing paths to images uploaded via tm1-ui-upload",
+        "body": [  
+            "<tm1-ui-dbr-image",
+            "   tm1-instance=\"${1:Instance Name}\"",
+            "   tm1-cube=\"${2:Cube Name}\"",
+            "   tm1-elements='${3:Comma separated element list}'",
+            "   tm1-ui-class=\"${4:string}\"",
+            "   tm1-alt=\"${5:string}\"",
+            "   ng-model=\"${6:model}\"",
+            "   >",
+            "</tm1-ui-dbr-image>"
+        ]
+    },
+    "tm1-ui-dbr-read-only-basic": {
+        "prefix": "tm1-ui-dbr-read-only:basic",
+        "description": "A DBR-like implementation for retrieving cube data from TM1 that is always read-only",
+        "body": [  
+            "<tm1-ui-dbr-read-only",
+            "   tm1-instance=\"${1:Instance Name}\"",
+            "   tm1-cube=\"${2:Cube Name}\"",
+            "   tm1-elements='${3:Comma separated element list}'",
+            "   tm1-data-decimal=\"${4:0}\"",
+            "   ng-model=\"${5:model}\"",
+            "   >",
+            "</tm1-ui-dbr-read-only>"
+        ]
+    },
+    "tm1-ui-dbr-read-only-full": {
+        "prefix": "tm1-ui-dbr-read-only:full",
+        "description": "A DBR-like implementation for retrieving cube data from TM1 that is always read-only",
+        "body": [   
+            "<tm1-ui-dbr-read-only",
+            "   tm1-instance=\"${1:Instance Name}\"",
+            "   tm1-cube=\"${2:Cube Name}\"",
+            "   tm1-elements='${3:Comma separated element list}'",
+            "   tm1-comment-cube=\"${4:Cube Name}\"",
+            "   tm1-comment-elements='${5:Comma separated element list}'",
+            "   tm1-comment-format-html-buttons=\"${6:[[\"h1\",\"h2\",\"h3\"],[\"bold\",\"italics\",\"underline\",\"justifyLeft\",\"justifyCenter\",\"justifyRight\",\"justifyFull\"],[\"indent\",\"outdent\",\"ul\",\"ol\"]]}\"",
+            "   tm1-comment-read-only=\"${7:false}\"",
+            "   tm1-hide-reference=\"${8:false}\"",
+            "   tm1-hide-comment=\"${9:false}\"",
+            "   tm1-hide-spread=\"${10:false}\"",
+            "   tm1-hide-drill=\"${11:false}\"",
+            "   tm1-format-percentage=\"${12:false}\"",
+            "   tm1-format-parenthesis=\"${13:false}\"",
+            "   tm1-data-decimal=\"${14:0}\"",
+            "   tm1-ui-class=\"${15:string}\"",
+            "   tm1-drill-model=\"${16:string}\"",
+            "   ng-model=\"${17:model}\"",
+            "   >",
+            "</tm1-ui-dbr-read-only>"
+        ]
+    },
+    "tm1-ui-dbra-basic": {
+        "prefix": "tm1-ui-dbra:basic",
+        "description": "A DBRA-like implementation for retrieving an element's attribute from TM1.",
+        "body": [  
+            "<tm1-ui-dbra",
+            "   tm1-instance=\"${1:Instance Name}\"",
+            "   tm1-dimension=\"${2:Dimension Name}\"",
+            "   tm1-element='${3:Element Name}'",
+            "   tm1-attribute=\"${4:0}\"",
+            "   ng-model=\"${5:model}\"",
+            "   >",
+            "</tm1-ui-dbra>"
+        ]
+    },
+    "tm1-ui-dbra-full": {
+        "prefix": "tm1-ui-dbra:full",
+        "description": "A DBRA-like implementation for retrieving an element's attribute from TM1",
+        "body": [   
+            "<tm1-ui-dbra",
+            "   tm1-instance=\"${1:Instance Name}\"",
+            "   tm1-dimension=\"${2:Dimension Name}\"",
+            "   tm1-element='${3:Element Name}'",
+            "   tm1-attribute=\"${4:0}\"",
+            "   tm1-read-only=\"${5:false}\"",
+            "   tm1-data-decimal=\"${6:0}\"",
+            "   tm1-placeholder=\"${7:string}\"",
+            "   tm1-validate=\"${8:string}\"",
+            "   tm1-validate-message=\"${9:string}\"",
+            "   tm1-hide-reference=\"${10:string}\"",
+            "   tm1-api=\"${11:string}\"",
+            "   tm1-change=\"${12:string}\"",
+            "   tm1-ui-class=\"${13:string}\"",
+            "   ng-model=\"${14:model}\"",
+            "   >",
+            "</tm1-ui-dbra>"
+        ]
+    },
+    "tm1-ui-element": {
+        "prefix": "tm1-ui-element:basic",
+        "description": "Used for populating a ng-model with an element's properties from a dimension",
+        "body": [  
+            "<tm1-ui-element",
+            "   tm1-instance=\"${1:Instance Name}\"",
+            "   tm1-dimension=\"${2:Dimension Name}\"",
+            "   tm1-element=\"${3:Element Name}\"",
+            "   tm1-attributes=\"${4:Attribute Name}\"",
+            "   ng-model=\"${5:model}\"",
+            "   >",
+            "</tm1-ui-element>"
+        ]
+    },
+    "tm1-ui-element-list-basic": {
+        "prefix": "tm1-ui-element-list:basic",
+        "description": "tm1-ui-element-list is used to create a list of element from a dimension that can be looped over",
+        "body": [  
+            "<tm1-ui-element-list",
+            "   tm1-instance=\"${1:Instance Name}\"",
+            "   tm1-dimension=\"${2:Dimension Name}\"",
+            "   tm1-subset=\"${3:Subset Name}\"",
+            "   tm1-calculate-top-level=\"${4:false}\"",
+            "   ng-model=\"${5:model}\"",
+            "   >",
+            "</tm1-ui-element-list>"
+        ]
+    },
+    "tm1-ui-element-list-full": {
+        "prefix": "tm1-ui-element-list:full",
+        "description": "tm1-ui-element-list is used to create a list of element from a dimension that can be looped over",
+        "body": [  
+            "<tm1-ui-element-list",
+            "   tm1-instance=\"${1:Instance Name}\"",
+            "   tm1-dimension=\"${2:Dimension Name}\"",
+            "   tm1-subset=\"${3:Subset Name}\"",
+            "   tm1-attributes=\"${4:Comma separated list of attributes}\"",
+            "   tm1-calculate-top-level=\"${5:false}\"",
+            "   tm1-api=\"${6:string}\"",
+            "   ng-model=\"${7:model}\"",
+            "   >",
+            "</tm1-ui-element-list>"
+        ]
+    },
+    "tm1-ui-element-list-item-basic": {
+        "prefix": "tm1-ui-element-list-item:basic",
+        "description": "tm1-ui-element-list-item is used to display an element with indentation",
+        "body": [  
+            "<tm1-ui-element-list-item",
+            "   tm1-item=\"${1:Item}\"",
+            "   tm1-item-display=\"${2:{{item.alias}}}\"",
+            "   >",
+            "</tm1-ui-element-list-item>"
+        ]
+    },
+    "tm1-ui-element-list-item-full": {
+        "prefix": "tm1-ui-element-list-item:full",
+        "description": "tm1-ui-element-list-item is used to display an element with indentation",
+        "body": [  
+            "<tm1-ui-element-list-item",
+            "   tm1-item=\"${1:Item}\"",
+            "   tm1-item-display=\"${2:{{item.alias}}}\"",
+            "   tm1-indent=\"${3:true}\"",
+            "   tm1-ui-class=\"${4:string}\"",
+            "   >",
+            "</tm1-ui-element-list-item>"
+        ]
+    },
+    "tm1-ui-export-basic": {
+        "prefix": "tm1-ui-export:basic",
+        "description": "Export data of properly formatted HTML tables",
+        "body": [  
+            "<tm1-ui-export",
+            "   tm1-target-id=\"${1:Table ID}\"",
+            "   tm1-output-name=\"${2:exported}\"",
+            "   tm1-field-separator=\"${3:,}\"",
+            "   tm1-ui-class=\"${4:string}\"",
+            "   >",
+            "</tm1-ui-export>"
+        ]
+    },
+    "tm1-ui-login": {
+        "prefix": "tm1-ui-login:basic",
+        "description": "A component that displays a login prompt, for connecting into TM1 instances",
+        "body": [  
+            "<tm1-ui-login",
+            "   tm1-after-login=\"${1:afterLogin(instance)}\"",
+            "   tm1-ui-class=\"${2:string}\"",
+            "   >",
+            "</tm1-ui-login>"
+        ]
+    },
+    "tm1-ui-process-basic": {
+        "prefix": "tm1-ui-process:basic",
+        "description": "A directive that allows you to call a TI process",
+        "body": [  
+            "<tm1-ui-process",
+            "   tm1-instance=\"${1:Instance Name}\"",
+            "   tm1-name=\"${2:Cube Name}\"",
+            "   tm1-ui-display-name=\"${3:string}\"",
+            "   >",
+            "</tm1-ui-process>"
+        ]
+    },
+    "tm1-ui-process-full": {
+        "prefix": "tm1-ui-process:full",
+        "description": "A directive that allows you to call a TI process",
+        "body": [  
+            "<tm1-ui-process",
+            "   tm1-instance=\"${1:Instance Name}\"",
+            "   tm1-name=\"${2:Cube Name}\"",
+            "   tm1-parameter-${3:ParameterName1}=\"${4:Parameter Value 1}\"",
+            "   tm1-parameter-${5:ParameterName2}=\"${6:Parameter Value 2}\"",
+            "   tm1-ui-display-name=\"${7:string}\"",
+            "   tm1-ui-message-running=\"${8:Process Running.}\"",
+            "   tm1-ui-message-success=\"${9:Process completed successfully.}\"",
+            "   tm1-ui-message-error=\"${10:Process failed.}\"",
+            "   tm1-ui-class=\"${11:string}\"",
+            "   tm1-ui-button-class=\"${12:string}\"",
+            "   tm1-ui-show-dialog=\"${13:false}\"",
+            "   tm1-ui-refresh-page=\"${14:false}\"",
+            "   tm1-ui-disabled=\"${15:false}\"",
+            "   >",
+            "</tm1-ui-process>"
+        ]
+    },
+     "tm1-ui-progress-basic": {
+        "prefix": "tm1-ui-progress:basic",
+        "description": "This directive will show a spinning gear icon whenever there is an pending request on the current page",
+        "body": [  
+            "<tm1-ui-progress>",
+            "   <tm1-ui-progress-pending> ${1:Please wait...}",
+            "   </tm1-ui-progress-pending>",
+            "</tm1-ui-progress>"
+        ]
+    },
+    "tm1-ui-progress-full": {
+        "prefix": "tm1-ui-progress:full",
+        "description": "This directive will show a spinning gear icon whenever there is an pending request on the current page",
+        "body": [  
+            "<tm1-ui-progress",
+            "   tm1-ui-class=\"${1:string}\"", 
+            "   tm1-ui-trigger=\"${2:object}\"",
+            "   >",
+            "   <tm1-ui-progress-pending> ${1:Please wait...}",
+            "   </tm1-ui-progress-pending>",
+            "   <tm1-ui-progress-ready> ${2:Ready}",
+            "   </tm1-ui-progress-ready>",            
+            "</tm1-ui-progress>"
+        ]
+    },
+    "tm1-ui-rpt-column-basic": {
+        "prefix": "tm1-ui-rpt-column:basic",
+        "description": "Use this to define the column elements on your active form",
+        "body": [  
+            "<tm1-ui-rpt-column",
+            "   tm1-dimension=\"${1:Dimension Name}\"",
+            "   >",
+            "</tm1-ui-rpt-column>"
+        ]
+    },
+    "tm1-ui-rpt-column-full": {
+        "prefix": "tm1-ui-rpt-column:full",
+        "description": "Use this to define the column elements on your active form",
+        "body": [  
+            "<tm1-ui-rpt-column",
+            "   tm1-dimension=\"${1:Dimension Name}\"",
+            "   tm1-element=\"${2:Element Name}\"",
+            "   tm1-subset=\"${3:Subset Name}\"",
+            "   >",
+            "</tm1-ui-rpt-column>"
+        ]
+    },
+    "tm1-ui-rpt-row-basic": {
+        "prefix": "tm1-ui-rpt-row:basic",
+        "description": "Use this to define the row elements on your active form",
+        "body": [  
+            "<tm1-ui-rpt-row",
+            "   tm1-dimension=\"${1:Dimension Name}\"",
+            "   >",
+            "</tm1-ui-rpt-row>"
+        ]
+    },
+    "tm1-ui-rpt-row-full": {
+        "prefix": "tm1-ui-rpt-row:full",
+        "description": "Use this to define the row elements on your active form",
+        "body": [  
+            "<tm1-ui-rpt-row",
+            "   tm1-dimension=\"${1:Dimension Name}\"",
+            "   tm1-element=\"${2:Element Name}\"",
+            "   tm1-subset=\"${3:Subset Name}\"",
+            "   tm1-attribute=\"${4:Attribute Name}\"",
+            "   >",
+            "</tm1-ui-rpt-row>"
+        ]
+    },
+    "tm1-ui-rpt-row-label-basic": {
+        "prefix": "tm1-ui-rpt-row-label:basic",
+        "description": "Use this to format and enable expanding/collapsing of your elements per row dimension",
+        "body": [  
+            "<tm1-ui-rpt-row-label",
+            "   tm1-row-data=\"${1:object}\"",
+            "   tm1-dimension=\"${2:Dimension Name}\"",
+            "   tm1-row-index=\"${3:string}\"",
+            "   >",
+            "</tm1-ui-rpt-row-label>"
+        ]
+    },
+    "tm1-ui-rpt-row-label-full": {
+        "prefix": "tm1-ui-rpt-row-label:full",
+        "description": "Use this to format and enable expanding/collapsing of your elements per row dimension",
+        "body": [  
+            "<tm1-ui-rpt-row-label",
+            "   tm1-row-data=\"${1:object}\"",
+            "   tm1-dimension=\"${2:Dimension Name}\"",
+            "   tm1-row-index=\"${3:string}\"",
+            "   tm1-freeze-element=\"${4:false}\"",
+            "   tm1-ui-class=\"${5:string}\"",
+            "   >",
+            "</tm1-ui-rpt-row-label>"
+        ]
+    },
+    "tm1-ui-rpt-row-title-basic": {
+        "prefix": "tm1-ui-rpt-title:basic",
+        "description": "Use this to define the title element on your active form",
+        "body": [  
+            "<tm1-ui-rpt-title",
+            "   tm1-dimension=\"${1:Dimension Name}\"",
+            "   tm1-element=\"${2:Element Name}\"",
+            "   >",
+            "</tm1-ui-rpt-title>"
+        ]
+    },
+    "tm1-ui-rpt-view-basic": {
+        "prefix": "tm1-ui-rpt-view:basic",
+        "description": "This is the parent directive that allows you to build an active form",
+        "body": [  
+            "<tm1-ui-rpt-view",
+            "   tm1-instance=\"${1:Instance Name}\"",
+            "   tm1-cube=\"${2:Cube Name}\"",
+            "   >",
+            "</tm1-ui-rpt-view>"
+        ]
+    },
+    "tm1-ui-rpt-view-full": {
+        "prefix": "tm1-ui-rpt-view:full",
+        "description": "This is the parent directive that allows you to build an active form",
+        "body": [  
+            "<tm1-ui-rpt-view",
+            "   tm1-instance=\"${1:Instance Name}\"",
+            "   tm1-cube=\"${2:Cube Name}\"",
+            "   tm1-suppress-zero=\"${3:both|row|column|none}\"",
+            "   tm1-ui-class=\"${4:string}\"",
+            "   ng-model=\"${5:object}\"",
+            "   >",
+            "</tm1-ui-rpt-view>"
+        ]
+    },
+    "tm1-ui-session-basic": {
+        "prefix": "tm1-ui-session:basic",
+        "description": "This allows access to a pop-up UI where user will be able to logout",
+        "body": [  
+            "<tm1-ui-session",
+            "   tm1-ui-class=\"${1:string}\"",
+            "   >",
+            "</tm1-ui-session>"
+        ]
+    },
+    "tm1-ui-store-basic": {
+        "prefix": "tm1-ui-store:basic",
+        "description": "A directive that lets you store information and preferences in JSON formatted-string into TM1",
+        "body": [  
+            "<tm1-ui-store",
+            "   tm1-instance=\"${1:Instance Name}\"",
+            "   tm1-cube=\"${2:Cube Name}\"",
+            "   tm1-elements='${3:Comma separated element list}'",
+            "   tm1-save-delay=\"${4:500}\"",
+            "   ng-model=\"${5:model}\"",
+            "   >",
+            "</tm1-ui-store>"
+        ]
+    },
+    "tm1-ui-subnm-basic": {
+        "prefix": "tm1-ui-subnm:basic",
+        "description": "tm1-ui-subnm is used to create a selection element based on a dimension list",
+        "body": [  
+            "<tm1-ui-subnm",
+            "   tm1-instance=\"${1:Instance Name}\"",
+            "   tm1-dimension=\"${2:Dimension Name}\"",
+            "   tm1-subset=\"${3:Subset Name}\"",
+            "   ng-model=\"${4:model}\"",
+            "   >",
+            "</tm1-ui-subnm>"
+        ]
+    },
+    "tm1-ui-subnm-full": {
+        "prefix": "tm1-ui-subnm:full",
+        "description": "tm1-ui-subnm is used to create a selection element based on a dimension list",
+        "body": [  
+            "<tm1-ui-subnm",
+            "   tm1-instance=\"${1:Instance Name}\"",
+            "   tm1-dimension=\"${2:Dimension Name}\"",
+            "   tm1-subset=\"${3:Subset Name}\"",
+            "   tm1-attribute=\"${4:Attribute Name}\"",
+            "   tm1-default-element=\"${5:Default Element}\"",
+            "   tm1-show-hierarchy=\"${6:true}\"",
+            "   tm1-select-only=\"${7:false}\"",
+            "   tm1-radio-only=\"${8:none}\"",
+            "   tm1-server-mode=\"${9:false}\"",
+            "   tm1-batch-size=\"${10:15}\"",
+            "   tm1-ui-class=\"${11:string}\"",
+            "   ng-model=\"${12:model}\"",
+            "   >",
+            "</tm1-ui-subnm>"
+        ]
+    },
+    "tm1-ui-table-mdx-basic": {
+        "prefix": "tm1-ui-table-mdx:basic",
+        "description": "For retrieving and displaying the result of a named MDX",
+        "body": [  
+            "<tm1-ui-table-mdx",
+            "   tm1-instance=\"${1:Instance Name}\"",
+            "   tm1-cube=\"${2:Cube Name}\"",
+            "   tm1-mdx-id=\"${3:MDX ID}\"",
+            "   >",
+            "</tm1-ui-table-mdx>"
+        ]
+    },
+    "tm1-ui-table-mdx-full": {
+        "prefix": "tm1-ui-table-mdx:full",
+        "description": "For retrieving and displaying the result of a named MDX",
+        "body": [  
+            "<tm1-ui-table-mdx",
+            "   tm1-instance=\"${1:Instance Name}\"",
+            "   tm1-cube=\"${2:Cube Name}\"",
+            "   tm1-mdx-id=\"${3:MDX ID}\"",
+            "   tm1-mdx-parameters=\"${4:Parameters}\"",
+            "   tm1-dimension-attribute=\"${5:Attribute Name}\"",
+            "   tm1-ui-class=\"${6:string}\"",
+            "   >",
+            "</tm1-ui-table-mdx>"
+        ]
+    },
+    "tm1-ui-upload-basic": {
+        "prefix": "tm1-ui-upload:basic",
+        "description": "A component for uploading files into your Canvas application, by instance",
+        "body": [  
+            "<tm1-ui-upload",
+            "   tm1-instance=\"${1:Instance Name}\"",
+            "   >",
+            "</tm1-ui-upload>"
+        ]
+    },
+    "tm1-ui-upload-full": {
+        "prefix": "tm1-ui-upload:full",
+        "description": "A component for uploading files into your Canvas application, by instance",
+        "body": [  
+            "<tm1-ui-upload",
+            "   tm1-instance=\"${1:Instance Name}\"",
+            "   tm1-max-size=\"${2:5}\"",
+            "   tm1-display-name=\"${3:Select File}\"",
+            "   tm1-image-options=\"${4:String}\"",
+            "   tm1-path=\"${5:File Path}\"",
+            "   tm1-ui-class=\"${6:string}\"",
+            "   >",
+            "</tm1-ui-upload>"
+        ]
+    },
+    "tm1-ui-user-basic": {
+        "prefix": "tm1-ui-user:basic",
+        "description": "For retrieving user information from the instances",
+        "body": [  
+            "<tm1-ui-user>",
+            "</tm1-ui-user>"
+        ]
+    },
+    "tm1-ui-user-full": {
+        "prefix": "tm1-ui-user:full",
+        "description": "For retrieving user information from the instances",
+        "body": [  
+            "<tm1-ui-user",
+            "   tm1-instance=\"${1:Instance Name}\"",
+            "   tm1-ui-class=\"${2:string}\"",
+            "   ng-model=\"${3:model}\"",
+            "   >",
+            "</tm1-ui-user>"
+        ]
+    }
+    ,
+    "tm1-ui-web-basic": {
+        "prefix": "tm1-ui-web:basic",
+        "description": "Allows you to display a cube view or an Excel workbook",
+        "body": [  
+            "<tm1-ui-web",
+            "   tm1-instance=\"${1:Instance Name}\"",
+            "   tm1-cube=\"${2:Cube Name}\"",
+            "   tm1-cube-view=\"${3:Default}\"",
+            "   >",
+            "</tm1-ui-web>"
+        ]
+    },
+    "tm1-ui-web-full": {
+        "prefix": "tm1-ui-web:full",
+        "description": "Allows you to display a cube view or an Excel workbook",
+        "body": [  
+            "<tm1-ui-web",
+            "   tm1-instance=\"${1:Instance Name}\"",
+            "   tm1-cube=\"${2:Cube Name}\"",
+            "   tm1-cube-view=\"${3:Default}\"",
+            "   tm1-titles=\"${4:(dimension1)=(element1)&(dimension2)=(element2)}\"",
+            "   tm1-show-tool-bar=\"${5:false}\"",
+            "   tm1-width=\"${6:100}\"",
+            "   tm1-height=\"${7:300}\"",
+            "   tm1-ui-class=\"${8:string}\"",
+            "   >",
+            "</tm1-ui-web>"
+        ]
+    }
+}
