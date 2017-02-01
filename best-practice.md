@@ -24,9 +24,9 @@ There are some keys principles of this document:
   * Always use the Page Creator in the /admin console to create new pages.
   * It will create a HTML page and JavaScript controller.
   * Use inline code for simple operations.
-  * Create $scope functions for more complicated code so it can be easily debugged or for reuse in the page.
+  * Create $scope functions for more complicated code so it can be easily debugged or for reused in the page.
   * Avoid the use of $root scope to pass parameters between pages.
-  * Use state parameters to pass parameters from one page to another.
+  * Use state parameters to pass simple values from one page to another.
   * Update URL query parameters each time a selection is made in the page. This is important for PDF creation.
   * Use Bootstrap as much as possible, it will give the look and feel consistency and allow you to switch between themes.
 
