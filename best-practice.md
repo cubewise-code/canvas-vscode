@@ -14,15 +14,10 @@ There are some keys principles of this document:
 
  * [HTML](#html)
  * [Javascript](#js)
- * [CSS](#css)
+ * [Styles (CSS)](#styles)
  * [HTML or Javascript?](#htmlorjs)
 
 ## <a name="html">HTML</a>
-Canvas is built using AngularJS directives to allowing you to build complex 
-pages with minimal JavaScript code. Having the **logic** of your page in HTML 
-adds complexity. 
-
-### Case, whitespace and indentation
 
   * All html elements, attributes and id's should be **lower-case**
   * Use hyphen to separate words in a value: `id="myElement"` becomes `id="my-element"`.
@@ -107,7 +102,7 @@ adds complexity.
 
 ```
 
-### Styling
+### <a name="styles">Styles (CSS)</a>
 
   * Don't use `<table>` elements to layout your page. 
   * Use Bootstrap `class="col-md-4"` classes instead, this will make your page responsive to different browser sizes.
@@ -230,8 +225,6 @@ adds complexity.
 ```
 
 ## <a name="js">JavaScript</a>
-
-### Whitespace and Indentation
 
 - Always indent your blocks of code, i.e. if, for, etc.
 - Use 2 spaces as indentation (the default in VS Code).
