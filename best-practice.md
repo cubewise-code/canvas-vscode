@@ -12,10 +12,24 @@ There are some keys principles of this document:
 
 ## Table of Contents
 
+ * [General Rules](#general)
  * [HTML](#html)
- * [Javascript](#js)
  * [Styles (CSS)](#styles)
+ * [Javascript](#js)
  * [HTML or Javascript?](#htmlorjs)
+
+## <a name="general">General Rules</a>
+
+  * Having consistent names and case makes your code easier to follow.
+  * Always use the Page Creator in the /admin console to create new pages.
+  * It will create a HTML page and JavaScript controller.
+  * Use inline code for simple operations.
+  * Create $scope functions for more complicated code so it can be easily debugged or for reuse in the page.
+  * Avoid the use of $root scope to pass parameters between pages.
+  * Use state parameters to pass parameters from one page to another.
+  * Update URL query parameters each time a selection is made in the page. This is important for PDF creation.
+  * Use Bootstrap as much as possible, it will give the look and feel consistency and allow you to switch between themes.
+
 
 ## <a name="html">HTML</a>
 
@@ -225,15 +239,45 @@ There are some keys principles of this document:
 ```
 
 ## <a name="js">JavaScript</a>
+These JavaScript rules apply to both code in your controllers as well as inline code. 
+Inline code is any JavaScript inside Angular directives such as: `ng-if`, `ng-show`, `ng-click`, etc. Example:
+```html
 
-- Always indent your blocks of code, i.e. if, for, etc.
-- Use 2 spaces as indentation (the default in VS Code).
-- Use empty lines to separate logical code blocks.
+  <!-- The code inside ng-click is just regular JavaScript -->
+  <!-- The semi-colons are required with writing multiple commands -->
+  <button class="btn btn-primary" ng-click="page.instance = 'dev'; page.cube = 'General Ledger';">Click Me!</button>
+
+```
+
+```javascript
+
+  // The above code is equivalent to:
+  $scope.page.instance='dev'; 
+  $scope.page.cube = 'General Ledger';
+
+
+```
+
+* Always indent your blocks of code, i.e. if, for, etc.
+* Use two spaces as indentation (the default in VS Code).
+* Use empty lines to separate logical code blocks.
+* Use whitespace and multiple lines to increase readability.
+* Always use curly braces for all code blocks.
+* All variables should use **camelCase**.
+* Don't use prefixes on your variable names to indicate scope or the data type.
+* Declare $scope variables in your controller
+* Don't use ng-init to declare variables
+* All $scope level variables should be part of an object
+* Code should be in the following order: 
+  1. $scope level variables
+  1. Any functions
+  1. Any initialisation code, i.e. requests to the server.
+  
 
 ```javascript
 
   // BAD
-  if( something>0 ){
+  if( condition ){
   // No indentation
   for(var i = 0; i < 10; i++){
   // Do something
@@ -241,7 +285,7 @@ There are some keys principles of this document:
   }
 
   // BETTER
-  if( something>0 ){
+  if( condition ){
     // Indentation makes is easier to read! 
     for(var i = 0; i < 10; i++){
       // Do something
@@ -287,6 +331,47 @@ There are some keys principles of this document:
     });
     return dims.join(", ");
   }
+
+
+```
+
+```javascript
+
+  // BAD, always use braces and use whitespace
+  if( condition ) $scope.instance = "prod";
+  
+  // BETTER, braces are always used and blocks should be over multiple lines
+  if( condition ){
+    $scope.instance = "prod"; 
+  }
+
+```
+
+```javascript
+
+app.controller('SampleCtrl', ['$scope', '$rootScope', '$interval', '$timeout', '$state', '$stateParams', '$http', '$location', function($scope, $rootScope, $interval, $timeout, $state, $stateParams, $http, $location) {
+	
+  // Declare $scope variables first
+  $scope.page = {
+    region: "Europe",
+    department: "Corporate",
+    version: "Budget"
+  };
+
+  // Declare any functions
+  $scope.loadData = function(){
+    // Add load logic
+  };
+	
+  // Call any functions
+  $scope.loadData();
+
+});
+
+
+```
+
+```javascript
 
 
 ```
