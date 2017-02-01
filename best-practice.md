@@ -16,7 +16,7 @@ There are some keys principles of this document:
  * [HTML](#html)
  * [Styles (CSS)](#styles)
  * [Javascript](#js)
- * [HTML or Javascript?](#htmlorjs)
+ * [Logic in HTML or Controllers?](#htmlorjs)
 
 ## <a name="general">General Rules</a>
 
@@ -371,7 +371,65 @@ app.controller('SampleCtrl', ['$scope', '$rootScope', '$interval', '$timeout', '
 
 ```
 
-```javascript
+## <a name="htmlorjs">Logic in HTML or Controllers</a>
 
+One of the first questions you are going to ask when developing your first Canvas applications is when to use inline
+JavaScript or add code to the page controller. Canvas was built so that the least amount of code needs to be written.
+It does most of the heavy-lifting for you, what you need to decide is whether you and fellow developers can easily 
+maintain and follow the code.
+
+In this section we will outline the pro's and con's of both methods. It is likely you will use both depending on the
+complexity of logic if it needs to be reused.
+
+
+### Simple rules for when to use inline JavaScript:
+
+  * If your logic is simple, one or two commands only. This will be the case for most pieces of logic.
+  * If the code isn't required in multiple locations on the page.
+
+### Simple rules for when to use $scope Functions:
+
+  * If the logic is complex or requires conditional statements or loops.
+  * If the piece of logic needs to be reused.
+  * If you are having problems in your page and need to debug your logic.
+  * If you need access JavaScript libraries and functions.
+
+
+
+### Inline HTML Logic
+
+Inline logic is added directly to the attributes (AngularJS directives) on your HTML elements such as `ng-click`,
+`ng-if` and `ng-class`. The code is just regular JavaScript that has direct access to the variables in $scope, i.e.
+you do not have to prefix the variables with `$scope.`. See the example below:  
+
+```html
+
+  <!-- The code inside ng-click is just regular JavaScript -->
+  <button class="btn btn-primary" ng-click="page.instance = 'dev'">Click Me!</button>
 
 ```
+
+You can create more complicated logic by using regular JavaScript syntax, you are however restricted to a single line. 
+Use semi-colons to separate multiple lines of code.
+
+```html
+
+  <!-- The code inside ng-click is just regular JavaScript -->
+<button class="btn btn-primary" ng-click="if( condition ) { page.instance = 'dev'; } else { page.instance = 'prod'; }">Click Me!</button>
+
+```
+
+
+The above method is the easiest method to add logic to your page and should be used as the default method. Below 
+is a summary of the advantages and disadvantages.
+
+| Advantages | Disadvantages |
+| ---------- | ------------- |
+| Code is inline so it is easy to see the logic without switching to a JavaScript file | Code is placed on one line making multiple statements hard to read |
+| Variables that don't exist are automatically created including the hierarchy | Variables are automatically created making it easy for a typo in a variable name to be missed |
+| No need to prefix variables with $scope | Most errors in your logic fail silently making it difficult to find issues |
+| | You can't debug the code in your browser developer tools |
+| | No direct access to JavaScript libraries such as Math |
+------------------------------
+
+
