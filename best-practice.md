@@ -136,6 +136,14 @@ adds complexity.
   </table>
 
   <!-- BETTER, use Bootstrap grid system instead -->
+  <div class="row">
+    <div class="col-md-6">
+      Left Column
+    </div>
+    <div class="col-md-6">
+      Right Column
+    </div>
+  </div>
 
 ```
 
