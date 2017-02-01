@@ -110,8 +110,7 @@ adds complexity.
 ### Styling
 
   * Don't use `<table>` elements to layout your page. 
-  * Use Bootstrap `class="col-md-4"` classes instead, this will make your page 
-  responsive to different browser sizes.
+  * Use Bootstrap `class="col-md-4"` classes instead, this will make your page responsive to different browser sizes.
     * SEE: [Bootstrap Grid System](http://getbootstrap.com/css/#grid)
   * Style all of your visual elements: tables, buttons, labels, etc with bootstrap classes.
   * Limit the use of the style attribute on elements.
