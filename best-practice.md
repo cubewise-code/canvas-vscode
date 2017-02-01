@@ -112,7 +112,7 @@ adds complexity.
   * Don't use `<table>` elements to layout your page. 
   * Use Bootstrap `class="col-md-4"` classes instead, this will make your page responsive to different browser sizes.
     * SEE: [Bootstrap Grid System](http://getbootstrap.com/css/#grid)
-  * Style all of your visual elements: tables, buttons, labels, etc with bootstrap classes.
+  * Style all of your visual elements: tables, buttons, input, select, labels, etc with Bootstrap classes.
   * Limit the use of the style attribute on elements.
   * If you repeat a particular style on two or more elements make it a CSS class instead.
   * Before creating your own styles try to use a Bootstrap one instead. This will allow you to change themes easily.
@@ -144,6 +144,88 @@ adds complexity.
       Right Column
     </div>
   </div>
+
+```
+
+```html
+
+  <!-- BAD, remember to add the Bootstrap classes  -->
+  <table></table>
+  <button></button>
+  <input></input>
+  <select></select>
+
+  <!-- BETTER, add the relevant Bootstrap classes -->
+  <table class="table table-striped"></table>
+  <button class="btn btn-primary"></button>
+  <input class="form-control"></input>
+  <select class="form-control"></select>
+
+```
+
+```html
+
+  <!-- BAD, don't repeat styles -->
+  <table class="table table-striped" >
+    <tr>
+      <td style="text-align: right;"></td>
+      <td style="text-align: right;"></td>
+    </tr>
+  </table>
+
+  <!-- BETTER, use either a Bootstrap class or a custom one -->
+  <table class="table table-striped" >
+    <tr>
+      <td class="text-right"></td>
+      <td class="text-right"></td>
+    </tr>
+  </table>
+
+```
+
+```html 
+
+  <!-- Use the style element for custom styles -->
+  <style>
+
+    .custom-style {
+      text-align: right;
+      font-weight: bold;
+    }
+
+  </style>
+
+```
+
+```css
+
+  /* Add classes for multiple pages in css/style.css */
+  .custom-style {
+    text-align: right;
+    font-weight: bold;
+  }
+
+```
+
+```css
+
+  /* BAD, CSS classes should be lower case */
+  .CUSTOMSTYLE {
+    text-align: right;
+    font-weight: bold;
+  }
+
+  /* BAD, separate words with a hyphen */
+  .customstyle {
+    text-align: right;
+    font-weight: bold;
+  }
+
+  /* BETTER, lower-case and hyphen as a separator */
+  .custom-style {
+    text-align: right;
+    font-weight: bold;
+  }
 
 ```
 
@@ -194,7 +276,7 @@ adds complexity.
     return dims.join(", ");
   }
 
-  // BETTER, lines between blocks makes it easier to read
+  // BETTER, a line between blocks makes it easier to read
   $scope.page = {
     instance: "dev"
   }
