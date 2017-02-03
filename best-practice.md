@@ -374,7 +374,7 @@ app.controller('SampleCtrl', ['$scope', '$rootScope', '$interval', '$timeout', '
 ## <a name="htmlorjs">Logic in HTML or Controllers</a>
 
 One of the first questions you are going to ask when developing your first Canvas applications is when to use inline
-JavaScript or add code to the page controller. Canvas was built so that the least amount of code needs to be written.
+JavaScript or add page logic to the controller. Canvas was built to minimise the amount of code that needs to be written.
 It does most of the heavy-lifting for you, what you need to decide is whether you and fellow developers can easily 
 maintain and follow the code.
 
@@ -428,8 +428,79 @@ is a summary of the advantages and disadvantages.
 | Code is inline so it is easy to see the logic without switching to a JavaScript file | Code is placed on one line making multiple statements hard to read |
 | Variables that don't exist are automatically created including the hierarchy | Variables are automatically created making it easy for a typo in a variable name to be missed |
 | No need to prefix variables with $scope | Most errors in your logic fail silently making it difficult to find issues |
-| | You can't debug the code in your browser developer tools |
+| You don't have to know a lot about JavaScript | You can't debug the code in your browser developer tools |
 | | No direct access to JavaScript libraries such as Math |
-------------------------------
 
 
+### Controller Logic
+
+You can also use the Angular (v1) controller for your logic. This is the best practice when developing regular Angular (v1) applications 
+as it enables the separation of the model (data), view (HTML) and controller (logic). This is called the MVC pattern and is widely used 
+it all types of modern applications. 
+
+Canvas applications are a little different because the directives are designed to do much of the heavy lifting for you, i.e. you don't 
+need to create queries and request data from the server using API's. This means that you controller will be limited to more advanced 
+scenarios such as querying the API's directly or adding complicated logic.
+
+The controller is a JavaScript file that has the same name as your HTML file, for example `/html/home.html` has a corresponding file 
+called `/js/controllers/home.js`. Below are some examples of placing logic in controller: 
+
+```html
+
+  <!-- Initialise the value of a scope variable -->
+  <!-- The 'page' object gets create automatically and the 'instance' property added to it
+  <div ng-init="page.instance = 'dev'"></div>
+
+```
+
+Becomes:
+
+
+```javascript
+
+  // Initialise the value of a scope variable
+  // Create the 'page' object with an 'instance' property
+  // Only create the 'page' object once
+  $scope.page = {
+    instance: "dev",
+    secondProperty: "something"
+  };
+
+  // The 'page' object was created above so we can now use the dot (.) notation to create a property
+  $scope.page.thirdProperty = "something else";
+
+  // You could also initial the 'page' variable as an empty logic
+  $scope.page = {};
+  $scope.page.instance = "dev";
+  $scope.page.secondProperty = "something";
+
+```
+
+```html 
+
+  <!-- Set the 'department' property on the 'page' object to 'Administration'  -->
+  <button ng-click="page.department = 'Administration'" >Administration</button>
+  
+```
+
+Becomes
+
+```javascript
+
+  // Create a function in the controller
+  // This can be used multiple times on your page
+  $scope.setDepartment = function(department){
+    $scope.page.department = department;
+    // Add extra logic here
+  };
+
+```
+
+```html
+
+  <!-- Use the setDepartment function on ng-click  -->
+  <button ng-click="setDepartment('Administration')" >Administration</button>
+
+```
+
+ 
