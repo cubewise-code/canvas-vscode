@@ -95,27 +95,6 @@ There are some keys principles of this document:
 
 ```
 
-```html
-
-  <!-- BAD -->
-  <div id='my-element'>
-
-  <!-- BETTER, use a single attribute per line -->
-  <tm1-ui-dbr
-     tm1-instance="Instance Name"
-     tm1-cube="Cube Name"
-     tm1-elements='Comma separated element list'
-     tm1-comment-cube="Cube Name"
-     tm1-comment-elements='Comma separated element list'
-     tm1-picklist-radio="none"
-     tm1-multi-line="1"
-     tm1-read-only="false"
-     tm1-comment-read-only="false"
-     >
-  </tm1-ui-dbr>
-
-```
-
 ### <a name="styles">Styles (CSS)</a>
 
   * Don't use `<table>` elements to layout your page. 
