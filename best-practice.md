@@ -12,13 +12,13 @@ There are some keys principles of this document:
 
 ## Table of Contents
 
- * [General Rules](#general)
+ * [General Rules](#general-rules)
  * [HTML](#html)
  * [Styles (CSS)](#styles)
  * [Javascript](#js)
  * [Logic in HTML or Controllers?](#htmlorjs)
 
-## <a name="general">General Rules</a>
+## General Rules
 
   * Having consistent names and case makes your code easier to follow.
   * Always use the Page Creator in the /admin console to create new pages.
