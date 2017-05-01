@@ -2,7 +2,7 @@
     "name": "canvas",
     "displayName": "Canvas",
     "description": "Canvas for TM1 directives",
-    "version": "1.2.0",
+    "version": "1.4.0",
     "publisher": "cubewise",
     "icon": "images/logo.png",
     "engines": {
