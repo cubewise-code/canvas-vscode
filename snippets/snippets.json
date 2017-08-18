@@ -42,7 +42,7 @@
             "    </thead>",
             "",
             "    <tbody>",
-            "       <tr ng-show=\"${13:item}.${14:value}!='0'}\" ng-repeat=\"${13:item} in ${6:model}}\">",
+            "       <tr ng-show=\"${13:item}.${14:value}!='0'\" ng-repeat=\"${13:item} in ${6:model}\">",
             "          <td>",
             "            <tm1-ui-element-list-item tm1-item=\"${13:item}\" tm1-item-display=\"{{${13:item}.alias}}\">",
             "            </tm1-ui-element-list-item>",
